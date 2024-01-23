@@ -13,10 +13,20 @@ usethis::use_data(phn, overwrite = TRUE, compress = "xz")
 
 # make lhn dataset
 ### create a complete dataset for LHNs (exception: Vic for now)
+### NOTE: French Island is an SA2 but isn't contained within the LHN shapes data
+###       Here, I assign it to the Bayside Peninsula LHN as it is closest.
+french_island <- hpa.spatial::get_polygon("sa22021", crs = 7844) |>
+  filter(sa2_name_2021 == "French Island") |>
+  add_column(LHN_Name = "Bayside Peninsula", STATE_CODE = "2") |>
+  select(LHN_Name, STATE_CODE)
+
 vic_lhn <- read_sf("data-raw/lhn-vic/DHHS_Service_Areas.shp") |>
   select(LHN_Name = ServiceAre) |>
   add_column(STATE_CODE = "2") |>
-  st_transform(7844)
+  st_transform(7844) |>
+  bind_rows(french_island) |>
+  group_by(LHN_Name, STATE_CODE) |>
+  summarize()
 
 sa_lhn <- read_sf("data-raw/lhn-sa/LocalHealthNetworks_GDA2020.shp") |>
   select(LHN_Name = lhn) |>
