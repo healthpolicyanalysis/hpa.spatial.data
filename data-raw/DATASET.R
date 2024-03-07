@@ -33,12 +33,18 @@ sa_lhn <- read_sf("data-raw/lhn-sa/LocalHealthNetworks_GDA2020.shp") |>
   mutate(LHN_Name = str_trim(str_remove(LHN_Name, "LHN"))) |>
   add_column(STATE_CODE = "4")
 
+wa_lhn <- read_sf("data-raw/lhn-wa/Health_Services_HEALTH_006.shp") |>
+  mutate(STATE_CODE = "5") |>
+  select(LHN_Name = service, STATE_CODE) |>
+  st_transform(7844)
+
 lhn <- read_sf("data-raw/LHN/Local_Hospital_Networks.shp") |>
   select(LHN_Name, STATE_CODE) |>
-  filter(STATE_CODE != "4") |>
+  filter(!STATE_CODE %in% c("4", "5")) |>
   st_transform(7844) |>
   bind_rows(vic_lhn) |>
   bind_rows(sa_lhn) |>
+  bind_rows(wa_lhn) |>
   mutate(
     state = toupper(strayr::clean_state(STATE_CODE)),
     state = factor(
@@ -50,6 +56,7 @@ lhn <- read_sf("data-raw/LHN/Local_Hospital_Networks.shp") |>
   ) |>
   select(LHN_Name, state, STATE_CODE) |>
   arrange(STATE_CODE, LHN_Name)
+
 
 usethis::use_data(lhn, overwrite = TRUE, compress = "xz")
 

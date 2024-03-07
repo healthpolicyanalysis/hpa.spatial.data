@@ -14,7 +14,10 @@ shows the boundaries of the Local Hospital Network in Australia.
 }
 \source{
 \url{https://hub.arcgis.com/datasets/ACSQHC::local-hospital-networks/explore}
-and \url{https://discover.data.vic.gov.au/dataset/dhhs-service-areas} for Victoria.
+for most of Australia but \url{https://discover.data.vic.gov.au/dataset/dhhs-service-areas}
+for Victoria, \url{https://catalogue.data.wa.gov.au/dataset/health-services-health-006}
+for Western Australia, and \url{https://data.sa.gov.au/data/dataset/local-health-networks}
+for South Australia.
 }
 \usage{
 lhn
