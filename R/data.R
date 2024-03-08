@@ -23,8 +23,10 @@
 #' @source <https://hub.arcgis.com/datasets/ACSQHC::local-hospital-networks/explore>
 #' for most of Australia but <https://discover.data.vic.gov.au/dataset/dhhs-service-areas>
 #' for Victoria, <https://catalogue.data.wa.gov.au/dataset/health-services-health-006>
-#' for Western Australia, and <https://data.sa.gov.au/data/dataset/local-health-networks>
-#' for South Australia.
+#' for Western Australia, <https://data.sa.gov.au/data/dataset/local-health-networks>
+#' for South Australia, and Tasmania only having one health service as per
+#' latest AIHW release for Local Hospital Network identifiers
+#' <https://meteor.aihw.gov.au/content/786748>.
 "lhn"
 
 

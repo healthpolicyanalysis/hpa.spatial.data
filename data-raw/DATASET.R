@@ -38,13 +38,22 @@ wa_lhn <- read_sf("data-raw/lhn-wa/Health_Services_HEALTH_006.shp") |>
   select(LHN_Name = service, STATE_CODE) |>
   st_transform(7844)
 
+tas_lhn <- hpa.spatial::get_polygon("sa22021", crs = 7844) |>
+  filter(state_code_2021 == 6) |>
+  group_by(STATE_CODE = state_code_2021) |>
+  summarize() |>
+  ungroup() |>
+  add_column(.before = 1, LHN_Name = "Tasmanian Health Service") |>
+  st_transform(7844)
+
 lhn <- read_sf("data-raw/LHN/Local_Hospital_Networks.shp") |>
   select(LHN_Name, STATE_CODE) |>
-  filter(!STATE_CODE %in% c("4", "5")) |>
+  filter(!STATE_CODE %in% c("4", "5", "6")) |>
   st_transform(7844) |>
   bind_rows(vic_lhn) |>
   bind_rows(sa_lhn) |>
   bind_rows(wa_lhn) |>
+  bind_rows(tas_lhn) |>
   mutate(
     state = toupper(strayr::clean_state(STATE_CODE)),
     state = factor(
