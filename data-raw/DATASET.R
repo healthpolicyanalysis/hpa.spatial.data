@@ -11,6 +11,23 @@ phn <- phn[, colSums(is.na(phn)) < nrow(phn)] |>
 
 usethis::use_data(phn, overwrite = TRUE, compress = "xz")
 
+
+# # map data from vic for 'LHN'
+# read_sf("data-raw/vic-shapes/DHHSServiceAreas/DHHSServiceAreas.shp") |>
+#   ggplot() +
+#   geom_sf()
+#
+# vic_lga_mod <- read_sf("data-raw/vic-shapes/LGA_modified/LGA_modified.shp")
+#
+# x <- hpa.spatial::get_polygon("LGA2021") |>
+#   filter(state_name_2021 == "Victoria") |>
+#   mutate(LGA_NAME = toupper(lga_name_2021))
+#
+# x$LGA_NAME[!x$LGA_NAME %in% vic_lga_mod$LGA_NAME]
+#
+# read_sf("data-raw/vic-shapes/New File Geodatabase.gdb/")
+
+
 # make lhn dataset
 ### create a complete dataset for LHNs (exception: Vic for now)
 ### NOTE: French Island is an SA2 but isn't contained within the LHN shapes data
@@ -46,14 +63,23 @@ tas_lhn <- hpa.spatial::get_polygon("sa22021", crs = 7844) |>
   add_column(.before = 1, LHN_Name = "Tasmanian Health Service") |>
   st_transform(7844)
 
+nt_lhn <- hpa.spatial::get_polygon("sa22021", crs = 7844) |>
+  filter(state_code_2021 == 7) |>
+  group_by(STATE_CODE = "7") |>
+  summarize() |>
+  ungroup() |>
+  add_column(.before = 1, LHN_Name = "NT Regional Health Services (NTRHS)") |>
+  st_transform(7844)
+
 lhn <- read_sf("data-raw/LHN/Local_Hospital_Networks.shp") |>
   select(LHN_Name, STATE_CODE) |>
-  filter(!STATE_CODE %in% c("4", "5", "6")) |>
+  filter(!STATE_CODE %in% c("4", "5", "6", "7")) |>
   st_transform(7844) |>
   bind_rows(vic_lhn) |>
   bind_rows(sa_lhn) |>
   bind_rows(wa_lhn) |>
   bind_rows(tas_lhn) |>
+  bind_rows(nt_lhn) |>
   mutate(
     state = toupper(strayr::clean_state(STATE_CODE)),
     state = factor(
