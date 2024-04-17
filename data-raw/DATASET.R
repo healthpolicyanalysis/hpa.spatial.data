@@ -4,6 +4,7 @@ library(leaflet)
 library(sf)
 
 acpr <- read_sf("data-raw/DOH_ACPR_2018/DOH_ACPR_2018.shp") |>
+  st_transform(7844) |>
   select(acpr_code = ACPR_Code, acpr_name = ACPR_Name, state = State_Terr)
 
 usethis::use_data(acpr, overwrite = TRUE, compress = "xz")
