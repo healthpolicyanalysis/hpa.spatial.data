@@ -77,3 +77,14 @@
 #' @source Mesh Blocks 2021 shapefile <https://www.abs.gov.au/statistics/standards/australian-statistical-geography-standard-asgs-edition-3/jul2021-jun2026/access-and-downloads/digital-boundary-files> and population data <https://www.abs.gov.au/census/guide-census-data/mesh-block-counts/latest-release>.
 "mmm19"
 
+#' \code{sf} Multipolygon data for the Aged Care Planning Regions boundaries for Australia (2018 edition).
+#'
+#'
+#' @format ## `acpr`
+#'
+#' A \code{sf} object.
+#'
+#'
+#' shows the boundaries of the Aged Care Planning Regions in Australia (2018 edition).
+#' @source <https://www.gen-agedcaredata.gov.au/resources/access-data/2020/january/aged-care-planning-region-maps>
+"acpr"

@@ -1,5 +1,8 @@
 # hpa.spatial.data (development version)
 
+* add ACPR shape file (2018 edition) from 
+  <https://www.gen-agedcaredata.gov.au/resources/access-data/2020/january/aged-care-planning-region-maps>.
+
 * update LHN shape file to include all of Tasmania as a single LHN called 
   "Tasmanian Health Service" as per the latest release of LHN identifiers from
   the AIHW (<https://meteor.aihw.gov.au/content/786748>).

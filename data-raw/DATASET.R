@@ -3,6 +3,12 @@ library(tidyverse)
 library(leaflet)
 library(sf)
 
+acpr <- read_sf("data-raw/DOH_ACPR_2018/DOH_ACPR_2018.shp") |>
+  select(acpr_code = ACPR_Code, acpr_name = ACPR_Name, state = State_Terr)
+
+usethis::use_data(acpr, overwrite = TRUE, compress = "xz")
+
+
 # make phn dataset
 phn <- read_sf("data-raw/phn.kml")
 phn <- st_transform(phn, 7844)
