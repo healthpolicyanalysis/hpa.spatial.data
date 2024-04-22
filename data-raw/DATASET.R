@@ -139,9 +139,18 @@ usethis::use_data(mb21_pop, overwrite = TRUE, compress = "xz")
 
 
 ### create MMM 2019 dataset
-
+mmm2019_labels <- c(
+  "Metropolitan areas",
+  "Regional centres",
+  "Large rural towns",
+  "Medium rural towns",
+  "Small rural towns",
+  "Remote communities",
+  "Very remote communities"
+)
 mmm19 <- read_sf("data-raw/mmm-2019/MMM2019Final.shp") |>
   as.data.frame() |>
-  select(SA1_MAIN16, MMM2019)
+  select(SA1_MAIN16, MMM2019) |>
+  mutate(MMM2019_label = factor(mmm2019_labels[MMM2019], levels = mmm2019_labels))
 
 usethis::use_data(mmm19, overwrite = TRUE, compress = "xz")

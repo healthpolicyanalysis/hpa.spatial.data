@@ -1,5 +1,8 @@
 # hpa.spatial.data (development version)
 
+* add labels to MMM2019 (taken from 
+  <https://www.health.gov.au/topics/rural-health-workforce/classifications/mmm>).
+
 * add ACPR shape file (2018 edition) from 
   <https://www.gen-agedcaredata.gov.au/resources/access-data/2020/january/aged-care-planning-region-maps>.
 
