@@ -3,9 +3,18 @@ library(tidyverse)
 library(leaflet)
 library(sf)
 
+
+d_sa_acpr_lkp <- readxl::read_excel("data-raw/service_area_to_aged_care_planning_region_lookup.xlsx") |>
+  # https://www.health.gov.au/sites/default/files/2025-09/single-assessment-system-assessment-organisations-by-service-area-region-state-and-territory.pdf
+  janitor::clean_names() |>
+  mutate(state = str_extract(service_area, ("[A-Z]*")))
+
 acpr <- read_sf("data-raw/DOH_ACPR_2018/DOH_ACPR_2018.shp") |>
   st_transform(7844) |>
-  select(acpr_code = ACPR_Code, acpr_name = ACPR_Name, state = State_Terr)
+  select(acpr_code = ACPR_Code, acpr_name = ACPR_Name, state = State_Terr) |>
+  left_join(d_sa_acpr_lkp, by = c("acpr_name" = "aged_care_planning_region", "state")) |>
+  relocate(service_area, .before = state)
+
 
 usethis::use_data(acpr, overwrite = TRUE, compress = "xz")
 

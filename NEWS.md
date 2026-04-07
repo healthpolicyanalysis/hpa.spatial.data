@@ -1,5 +1,8 @@
 # hpa.spatial.data (development version)
 
+* add service areas groupings to ACPR data (taken from 
+  <https://www.health.gov.au/sites/default/files/2025-09/single-assessment-system-assessment-organisations-by-service-area-region-state-and-territory.pdf>).
+
 * add labels to MMM2019 (taken from 
   <https://www.health.gov.au/topics/rural-health-workforce/classifications/mmm>).
 
