@@ -1,5 +1,7 @@
 # hpa.spatial.data (development version)
 
+* add MMMM2023 (by SA1) dataset
+
 * add service areas groupings to ACPR data (taken from 
   <https://www.health.gov.au/sites/default/files/2025-09/single-assessment-system-assessment-organisations-by-service-area-region-state-and-territory.pdf>).
 

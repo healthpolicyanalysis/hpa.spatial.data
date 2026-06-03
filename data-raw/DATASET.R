@@ -4,6 +4,13 @@ library(leaflet)
 library(sf)
 
 
+mmm2023 <- readxl::read_excel("data-raw/asgs-sa1-2021-mmm-2023.xlsx", skip = 7) |>
+  janitor::clean_names() |>
+  select(sa1_code_2021 = sa1_2021_code, mmm_2023_code) |>
+  mutate(sa1_code_2021 = as.character(sa1_code_2021))
+
+usethis::use_data(mmm2023, overwrite = TRUE, compress = "xz")
+
 d_sa_acpr_lkp <- readxl::read_excel("data-raw/service_area_to_aged_care_planning_region_lookup.xlsx") |>
   # https://www.health.gov.au/sites/default/files/2025-09/single-assessment-system-assessment-organisations-by-service-area-region-state-and-territory.pdf
   janitor::clean_names() |>
